@@ -147,6 +147,85 @@
         width: 340px;
       }
     }
+
+    #popup {
+      display: table;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      height: 100%;
+      width: 100%;
+      background: rgba(240, 240, 240, .9);
+      visibility: hidden;
+      animation: animaciya 1s 2s forwards;
+      /* 5s — это количество секунд по истечении которых появляется сообщение */
+      cursor: pointer;
+    }
+
+    @keyframes animaciya {
+      from {
+        visibility: hidden;
+      }
+
+      to {
+        visibility: visible;
+      }
+    }
+
+    #popup figure {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    #popup div,
+    #popup figcaption,
+    #popup figure:before {
+      max-width: 1000px;
+      /* максимальная ширина */
+      margin: 0 auto;
+      border-style: solid;
+      border-color: rgb(88, 125, 164);
+      background: #fff;
+    }
+
+    #popup figure:before {
+      /* стиль кнопки "закрыть" */
+      content: "закрыть";
+      display: block;
+      padding: 0 1%;
+      border-width: 4px 4px 0 4px;
+      border-radius: 5px 5px 0 0;
+      text-align: right;
+      color: rgb(88, 125, 164);
+    }
+
+    #popup div,
+    #popup figcaption {
+      padding: 2%;
+      cursor: default;
+    }
+
+    #popup figcaption {
+      position: relative;
+      border-width: 0 4px 0 4px;
+      font-size: 150%;
+      text-transform: uppercase;
+      color: rgb(100, 100, 100);
+    }
+
+    #popup figcaption:before {
+      /* стиль восклицательного знака, не поддерживается Google Chrome. Его можно заменить на что-то более приемлемое */
+      content: "\26a0 \20 \20";
+      color: red;
+      font-size: 150%;
+      vertical-align: middle;
+    }
+
+    #popup div {
+      border-width: 0 4px 4px 4px;
+      border-radius: 0 0 5px 5px;
+    }
   </style>
 
   <script type="application/ld+json">{
@@ -165,257 +244,306 @@
 </head>
 
 <body class="u-body">
-  <header class="u-clearfix u-header u-palette-1-base u-header" id="sec-ab9d">
-    <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="https://yaskuld-photografy.hopto.org/" class="u-image u-logo u-image-1">
-        <img src="Page%207_files/Untitled-2.png" class="u-logo-image u-logo-image-1" data-image-width="64">
-      </a>
-      <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1 u-enable-responsive" data-responsive-from="XL">
-        <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 500;">
-          <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base u-text-palette-3-base"
-            href="#">
-            <svg>
-              <use href="#menu-hamburger"></use>
-            </svg>
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
-              <defs>
-                <symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;">
-                  <rect y="1" width="16" height="2"></rect>
-                  <rect y="7" width="16" height="2"></rect>
-                  <rect y="13" width="16" height="2"></rect>
-                </symbol>
-              </defs>
-            </svg>
-          </a>
-        </div>
-        <div class="u-custom-menu u-nav-container">
-          <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
-            <li class="u-nav-item"><a
-                class="u-active-grey-5 u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-hover-grey-10 u-nav-link u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base"
-                href="" data-page-id="255461" style="padding: 10px 20px;">Home</a>
-              <div class="u-nav-popup fake u-hidden">
-                <ul class="u-nav u-unstyled">
-                  <li class="u-nav-item"><a class="u-nav-link">Menu Item 1</a></li>
-                  <li class="u-nav-item"><a class="u-nav-link">Menu Item 2</a></li>
-                  <li class="u-nav-item"><a class="u-nav-link">Menu Item 3</a></li>
+
+ <div id="popup">
+    <figure>
+      <figcaption>Сайт может содержать материалы сексуального характера!</figcaption>
+      <div>
+        <h3>
+          <p style="text-align: center;">
+            Находясь на сайте, вы подтверждаете, что вам 18+ лет.
+          </p>
+        </h3>
+        <p style="text-align: center;">
+          <a id="setCookie" href="#">Да, мне есть 18 лет</a>
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          <a href="/">Нет, мне нет 18 лет</a>
+        </p>
+      </div>>
+    </figure>
+    </div>
+
+    <script>
+      $(function () {
+        $('#setCookie').click(function () {
+          $.cookie('popup', '1', { expires: 30 });
+          $('#popup').hide();
+        });
+        $('#popup').hide();
+        if (!$.cookie('popup')) {
+          setTimeout(function () { $('#popup').show(); }, 2000)
+        }
+      });
+    </script>
+    <script>
+      window.onkeyup = okno; // нажатие Esc, см. условие "e.keyCode==27"
+      document.getElementById('popup').onclick = okno;
+
+      function okno(e) {
+        if (e.target.nodeName != 'DIV' && e.target.nodeName != 'FIGCAPTION' || e.keyCode == 27) { // через && перечисляются теги, клинкув на которые окно не будет закрыто; сюда же можно включить тег A или IFRAME
+          document.getElementById('popup').style.display = 'none';
+          localStorage.setItem('popup1', 'none');
+        }
+      }
+
+      if (localStorage.getItem('popup1')) {
+        document.getElementById('popup').style.display = 'none';
+      }
+    </script>
+
+    <header class="u-clearfix u-header u-palette-1-base u-header" id="sec-ab9d">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <a href="https://yaskuld-photografy.hopto.org/" class="u-image u-logo u-image-1">
+          <img src="Page%207_files/Untitled-2.png" class="u-logo-image u-logo-image-1" data-image-width="64">
+        </a>
+        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1 u-enable-responsive" data-responsive-from="XL">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 500;">
+            <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base u-text-palette-3-base"
+              href="#">
+              <svg>
+                <use href="#menu-hamburger"></use>
+              </svg>
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                  <symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;">
+                    <rect y="1" width="16" height="2"></rect>
+                    <rect y="7" width="16" height="2"></rect>
+                    <rect y="13" width="16" height="2"></rect>
+                  </symbol>
+                </defs>
+              </svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+              <li class="u-nav-item"><a
+                  class="u-active-grey-5 u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-hover-grey-10 u-nav-link u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base"
+                  href="" data-page-id="255461" style="padding: 10px 20px;">Home</a>
+                <div class="u-nav-popup fake u-hidden">
+                  <ul class="u-nav u-unstyled">
+                    <li class="u-nav-item"><a class="u-nav-link">Menu Item 1</a></li>
+                    <li class="u-nav-item"><a class="u-nav-link">Menu Item 2</a></li>
+                    <li class="u-nav-item"><a class="u-nav-link">Menu Item 3</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="u-nav-item"><a
+                  class="u-active-grey-5 u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-hover-grey-10 u-nav-link u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base"
+                  href="https://website255453.nicepage.io/Page-6.html" data-page-id="262065"
+                  style="padding: 10px 20px;">Page 6</a>
+              </li>
+              <li class="u-nav-item"><a
+                  class="u-active-grey-5 u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-hover-grey-10 u-nav-link u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base active"
+                  href="https://website255453.nicepage.io/Page-7.html" data-page-id="262120"
+                  style="padding: 10px 20px;">Page 7</a>
+              </li>
+            </ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-sidenav-overflow">
+                <div class="u-menu-close"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                  <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                      href="https://yaskuld-photografy.hopto.org" data-page-id="255461"
+                      style="padding: 10px 20px;">Home</a>
+                  </li>
                 </ul>
               </div>
-            </li>
-            <li class="u-nav-item"><a
-                class="u-active-grey-5 u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-hover-grey-10 u-nav-link u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base"
-                href="https://website255453.nicepage.io/Page-6.html" data-page-id="262065"
-                style="padding: 10px 20px;">Page 6</a>
-            </li>
-            <li class="u-nav-item"><a
-                class="u-active-grey-5 u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-hover-grey-10 u-nav-link u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base active"
-                href="https://website255453.nicepage.io/Page-7.html" data-page-id="262120"
-                style="padding: 10px 20px;">Page 7</a>
-            </li>
-          </ul>
-        </div>
-        <div class="u-custom-menu u-nav-container-collapse">
-          <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-            <div class="u-sidenav-overflow">
-              <div class="u-menu-close"></div>
-              <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="https://yaskuld-photografy.hopto.org"
-                    data-page-id="255461" style="padding: 10px 20px;">Home</a>
-                </li>
-              </ul>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+          <style class="offcanvas-style">
+            .u-offcanvas .u-sidenav {
+              flex-basis: 250px !important;
+            }
+
+            .u-offcanvas:not(.u-menu-open-right) .u-sidenav {
+              margin-left: -250px;
+            }
+
+            .u-offcanvas.u-menu-open-right .u-sidenav {
+              margin-right: -250px;
+            }
+
+            @keyframes menu-shift-left {
+              from {
+                left: 0;
+              }
+
+              to {
+                left: 250px;
+              }
+            }
+
+            @keyframes menu-unshift-left {
+              from {
+                left: 250px;
+              }
+
+              to {
+                left: 0;
+              }
+            }
+
+            @keyframes menu-shift-right {
+              from {
+                right: 0;
+              }
+
+              to {
+                right: 250px;
+              }
+            }
+
+            @keyframes menu-unshift-right {
+              from {
+                right: 250px;
+              }
+
+              to {
+                right: 0;
+              }
+            }
+          </style>
+        </nav>
+      </div>
+    </header>
+
+    <section class="u-align-center u-clearfix u-palette-5-dark-3 u-valign-middle u-section-2" id="sec-4673">
+      <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-on-hover u-gallery-1"
+        data-pswp-uid="1">
+        <div class="u-gallery-inner u-gallery-inner-1">
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="0">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded" src="Page%207_files/mockup-with-gold-logo_136295-386.jpg"
+                alt="3d logo mockup">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-1">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">3d logo mockup</h3>
+              <p class="u-gallery-text"></p>
             </div>
           </div>
-          <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-        </div>
-        <style class="offcanvas-style">
-          .u-offcanvas .u-sidenav {
-            flex-basis: 250px !important;
-          }
-
-          .u-offcanvas:not(.u-menu-open-right) .u-sidenav {
-            margin-left: -250px;
-          }
-
-          .u-offcanvas.u-menu-open-right .u-sidenav {
-            margin-right: -250px;
-          }
-
-          @keyframes menu-shift-left {
-            from {
-              left: 0;
-            }
-
-            to {
-              left: 250px;
-            }
-          }
-
-          @keyframes menu-unshift-left {
-            from {
-              left: 250px;
-            }
-
-            to {
-              left: 0;
-            }
-          }
-
-          @keyframes menu-shift-right {
-            from {
-              right: 0;
-            }
-
-            to {
-              right: 250px;
-            }
-          }
-
-          @keyframes menu-unshift-right {
-            from {
-              right: 250px;
-            }
-
-            to {
-              right: 0;
-            }
-          }
-        </style>
-      </nav>
-    </div>
-  </header>
-
-  <section class="u-align-center u-clearfix u-palette-5-dark-3 u-valign-middle u-section-2" id="sec-4673">
-    <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-on-hover u-gallery-1" data-pswp-uid="1">
-      <div class="u-gallery-inner u-gallery-inner-1">
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="0">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded" src="Page%207_files/mockup-with-gold-logo_136295-386.jpg"
-              alt="3d logo mockup">
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="1">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded" src="Page%207_files/logo-mockup-black-facade-sign_145275-281.jpg"
+                alt="modern facade">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-2">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">modern facade</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-1">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">3d logo mockup</h3>
-            <p class="u-gallery-text"></p>
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="2">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded"
+                src="Page%207_files/abstract-mock-up-logo-shopping-bag_23-2148834294.jpg" alt="shopping bag">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-3">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">shopping bag</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="1">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded" src="Page%207_files/logo-mockup-black-facade-sign_145275-281.jpg"
-              alt="modern facade">
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="3">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded" src="Page%207_files/rr.jpg" alt="minimalistic design">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-4">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">minimalistic design</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-2">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">modern facade</h3>
-            <p class="u-gallery-text"></p>
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="4">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded"
+                src="Page%207_files/logo-mockup-luxury-black-facade-sign_145275-288.jpg" alt="luxury black facade">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-5">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">luxury black facade</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="2">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded"
-              src="Page%207_files/abstract-mock-up-logo-shopping-bag_23-2148834294.jpg" alt="shopping bag">
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="5">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded" src="Page%207_files/3d-lion-logo-mockup_145275-144.jpg"
+                alt="mockup with logo">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-6">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">mockup with logo</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-3">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">shopping bag</h3>
-            <p class="u-gallery-text"></p>
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="6">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded"
+                src="Page%207_files/rounded-corner-business-cards-mockup_358694-108.jpg" alt="business card">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-7">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">business card</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="3">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded" src="Page%207_files/rr.jpg" alt="minimalistic design">
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="7">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded"
+                src="Page%207_files/mock-up-logo-design-business-white-paper_23-2148834253.jpg" alt="identity design">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-8">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">identity design</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-4">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">minimalistic design</h3>
-            <p class="u-gallery-text"></p>
-          </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="4">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded"
-              src="Page%207_files/logo-mockup-luxury-black-facade-sign_145275-288.jpg" alt="luxury black facade">
-          </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-5">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">luxury black facade</h3>
-            <p class="u-gallery-text"></p>
-          </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="5">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded" src="Page%207_files/3d-lion-logo-mockup_145275-144.jpg"
-              alt="mockup with logo">
-          </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-6">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">mockup with logo</h3>
-            <p class="u-gallery-text"></p>
-          </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="6">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded"
-              src="Page%207_files/rounded-corner-business-cards-mockup_358694-108.jpg" alt="business card">
-          </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-7">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">business card</h3>
-            <p class="u-gallery-text"></p>
-          </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="7">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded"
-              src="Page%207_files/mock-up-logo-design-business-white-paper_23-2148834253.jpg" alt="identity design">
-          </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-8">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">identity design</h3>
-            <p class="u-gallery-text"></p>
-          </div>
-        </div>
-        <div class="u-effect-fade u-gallery-item" data-pswp-item-id="8">
-          <div class="u-back-slide">
-            <img class="u-back-image u-expanded"
-              src="Page%207_files/black-white-business-card-mockup-design_47987-2181.jpg" alt="modern design">
-          </div>
-          <div class="u-over-slide u-shading u-valign-middle u-over-slide-9">
-            <h3 class="u-gallery-heading" style="text-transform: uppercase;">modern design</h3>
-            <p class="u-gallery-text"></p>
+          <div class="u-effect-fade u-gallery-item" data-pswp-item-id="8">
+            <div class="u-back-slide">
+              <img class="u-back-image u-expanded"
+                src="Page%207_files/black-white-business-card-mockup-design_47987-2181.jpg" alt="modern design">
+            </div>
+            <div class="u-over-slide u-shading u-valign-middle u-over-slide-9">
+              <h3 class="u-gallery-heading" style="text-transform: uppercase;">modern design</h3>
+              <p class="u-gallery-text"></p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <p class="u-text u-text-body-alt-color u-text-1">Фото сделаны Valerya Yaskuld. Все модели совершеннолетние.<a
-        href=""
-        class="u-border-1 u-border-white u-btn u-button-link u-button-style u-none u-text-body-alt-color u-btn-1"
-        target="_blank"></a>
-    </p>
-  </section>
+      <p class="u-text u-text-body-alt-color u-text-1">Фото сделаны Valerya Yaskuld. Все модели совершеннолетние.<a
+          href=""
+          class="u-border-1 u-border-white u-btn u-button-link u-button-style u-none u-text-body-alt-color u-btn-1"
+          target="_blank"></a>
+      </p>
+    </section>
 
 
-  <footer class="u-align-center u-clearfix u-footer u-palette-1-base u-footer" id="sec-0f65">
-    <div class="u-clearfix u-sheet u-sheet-1">
-      <p class="u-small-text u-text u-text-variant u-text-1">
-        Меня зовут Valerya Yaskuld, я профессиональный фотограф, специализирующийся на съемке гламурных и эротических
-        фотографий.<br>
-        В моём портфолио вы найдете работы, разработанные в уникальном стиле, который передает эмоции и чувства, взяты
-        из реальной жизни.</p>
-    </div>
-  </footer>
+    <footer class="u-align-center u-clearfix u-footer u-palette-1-base u-footer" id="sec-0f65">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">
+          Меня зовут Valerya Yaskuld, я профессиональный фотограф, специализирующийся на съемке гламурных и эротических
+          фотографий.<br>
+          В моём портфолио вы найдете работы, разработанные в уникальном стиле, который передает эмоции и чувства, взяты
+          из реальной жизни.</p>
+      </div>
+    </footer>
 
-  <section class="u-backlink u-clearfix u-grey-80">
+    <section class="u-backlink u-clearfix u-grey-80">
 
-    <span>
-      Все модели на фотографиях являются совершеннолетними. Минимальный возраст всех моделей на фотографиях - 18
-      лет.
-    </span>
-    </p>
-    <br>
-    <p class="u-text">
       <span>
-        Используя наш сайт, вы соглашаетесь с
+        Все модели на фотографиях являются совершеннолетними. Минимальный возраст всех моделей на фотографиях - 18
+        лет.
       </span>
-    </p>
-    <a class="u-link" href="" target="_blank">
-      <span>Правилами и условиями использования сайта</span>
+      </p>
+      <br>
+      <p class="u-text">
+        <span>
+          Используя наш сайт, вы соглашаетесь с
+        </span>
+      </p>
+      <a class="u-link" href="" target="_blank">
+        <span>Правилами и условиями использования сайта</span>
 
-    </a>.
-    <a class="u-link" href="" target="_blank">
-      <span>Соглашением об использовании сайта 18+</span>
-    </a>.
-  </section>
+      </a>.
+      <a class="u-link" href="" target="_blank">
+        <span>Соглашением об использовании сайта 18+</span>
+      </a>.
+    </section>
 
 </body>
 
